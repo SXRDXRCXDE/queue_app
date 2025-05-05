@@ -20,7 +20,7 @@ function App() {
         if (myLocation) {
             navigate("/home");
         } else {
-            navigate("/home");
+            navigate("/onboarding");
         }
     }, []);
 
