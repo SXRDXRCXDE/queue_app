@@ -24,6 +24,11 @@
     }
 }
 
+.mainCont {
+    font-family: 'Manrope', sans-serif;
+    @apply w-full min-h-screen relative bg-blue-700 ;
+}
+
 .container {
     font-family: Manrope;
     @apply w-full min-h-screen pb-12 bg-white  ;
@@ -46,13 +51,7 @@
     justify-content: center;
 }
 
-.stage1Cont img {
-    @apply w-52 h-fit transform scale-100 transition-transform duration-500;
-}
 
-.stage1Cont span {
-    @apply absolute bottom-[68px] font-semibold text-2xl ;
-}
 
 .welcomeCont {
     animation: load 0.5s forwards;

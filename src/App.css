@@ -1,6 +1,10 @@
+
+
 .App {
-  text-align: center;
+  text-align: center ;
+  @apply relative w-full min-h-screen ;
 }
+
 
 .App-logo {
   height: 40vmin;

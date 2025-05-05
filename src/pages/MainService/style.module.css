@@ -4,21 +4,18 @@
 
 .container {
     font-family: 'Manrope', sans-serif;
-    @apply w-full h-screen relative overflow-hidden;
+    @apply w-full min-h-screen relative bg-gray-100 flex flex-col;
 }
 
 .contentWrapper {
-    @apply absolute top-0 left-0 w-full h-full flex flex-col justify-between z-10;
-}
-
-.stickyHeader {
-    @apply sticky top-0 z-20 flex flex-col px-4 pt-4 pb-2;
+    @apply absolute top-0 left-0 overflow-y-auto w-full h-full flex flex-col justify-start z-10;
 }
 
 .scrollableContent {
-    @apply flex-1 w-full rounded-t-3xl shadow-2xl ;
+    @apply w-full bg-gray-100 mt-4 rounded-t-3xl z-10 pt-6 pb-12;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .footer {
-    @apply w-full h-72 border-t border-black flex flex-col items-start justify-between pt-4 text-start ;
+    @apply w-full h-72 border-t border-black flex flex-col items-start justify-between pt-4 text-start;
 }

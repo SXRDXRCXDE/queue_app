@@ -3,21 +3,19 @@ import style from "./style.module.css";
 import logo from "../../assets/analis logo.png";
 import analis1 from "../../assets/analis intro layer.png";
 import analis2 from "../../assets/analis intro layer 2.png";
-import analis3 from "../../assets/analis layer 3.png";
 import vector from "../../assets/analis vector.png";
 import Button from "../../components/Button";
 import {FaChevronLeft, FaChevronRight} from "react-icons/fa";
 import MapSelector from "../../components/MapSelector";
-import debounce from 'lodash.debounce';
+import {useNavigate} from "react-router-dom";
 
 
-export default function IntroRestyle() {
+export default function OnboardingFlow() {
+
+    const navigate = useNavigate();
 
     const [stage,setStage] = useState(0);
     const [location,setLocation] = useState([]);
-    const [searchText, setSearchText] = useState('');
-    const [suggestions, setSuggestions] = useState([]);
-    const [selectedLocation, setSelectedLocation] = useState(null);
 
     useEffect(()=>{
 
@@ -33,7 +31,8 @@ export default function IntroRestyle() {
             if (storedLocation && storedAddress) {
                 console.log('Location:', JSON.parse(storedLocation));
                 console.log('Address:', storedAddress);
-                setLocation(storedAddress); // Fixed: parse it here
+                const trimmedLocation = storedAddress?.split(",").slice(0, 3).join(",").trim();
+                setLocation(trimmedLocation); // Fixed: parse it here
             }
         };
 
@@ -48,34 +47,6 @@ export default function IntroRestyle() {
         };
     }, []);
 
-    // Fetch suggestions from Nominatim
-    const fetchSuggestions = debounce(async (query) => {
-        if (!query) return setSuggestions([]);
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
-        const data = await res.json();
-        setSuggestions(data);
-    }, 400);
-
-    useEffect(() => {
-        fetchSuggestions(searchText);
-    }, [searchText]);
-
-    const handleSuggestionClick = (place) => {
-        const latlng = {
-            lat: parseFloat(place.lat),
-            lng: parseFloat(place.lon),
-        };
-        setSelectedLocation(latlng);
-        setSearchText(place.display_name);
-        setSuggestions([]);
-
-        // Save to localStorage
-        localStorage.setItem('selectedLocation', JSON.stringify(latlng));
-        localStorage.setItem('selectedAddress', place.display_name);
-
-        // Dispatch custom event for sync
-        window.dispatchEvent(new Event('location-updated'));
-    };
 
     const mapRef = useRef(null); // 1️⃣ Create a ref
 
@@ -116,11 +87,11 @@ export default function IntroRestyle() {
     const Welcome = (
         <div className={stage===2? style.welcomeContEnd : style.welcomeCont}>
 
-            <div className={'w-full h-[400px] overflow-hidden relative flex items-center justify-center'}>
+            <div className={'w-full h-[300px] overflow-hidden relative flex items-center justify-center'}>
 
                 <img className={'object-contain h-12 absolute top-0 left-3'} src={vector} alt={'Analis vector logo'}/>
 
-                <img className={'object-contain h-full'} src={analis1} alt={'Analis first layer'}/>
+                <img className={'object-contain max-h-60'} src={analis1} alt={'Analis first layer'}/>
 
             </div>
 
@@ -133,16 +104,14 @@ export default function IntroRestyle() {
         </div>
     );
 
-    console.log(stage)
-
     const ChooseMap = (
         <div className={style.chooseMapCont}>
 
-            <div className={'w-full h-[400px] overflow-hidden relative flex items-center justify-center'}>
+            <div className={'w-full h-auto pt-10 overflow-hidden relative flex items-center justify-center'}>
 
                 <img className={'object-contain h-12 absolute top-0 left-3'} src={vector} alt={'Analis vector logo'}/>
 
-                <img className={'w-[80%] object-contain h-full'} src={analis2} alt={'Analis map layer'}/>
+                <img className={'w-auto object-contain max-h-52'} src={analis2} alt={'Analis map layer'}/>
 
             </div>
 
@@ -166,7 +135,7 @@ export default function IntroRestyle() {
                     {/*Container fade out when user routes to choose map*/}
                     {
                         stage>=5? ``:
-                            <div className={` ${stage>=4? `opacity-0 duration-100` : `opacity-100`} w-full h-full min-h-screen p-3 flex flex-col justify-between`}>
+                            <div className={` ${stage>=4? `opacity-0 duration-100` : `opacity-100`} w-full min-h-screen px-3 pt-3 flex flex-col pb-20 justify-between`}>
 
                                 {/*This is Welcome view*/}
                                 {stage>=3? `` : Welcome}
@@ -197,7 +166,6 @@ export default function IntroRestyle() {
                                                     </div>
                                                 }
                                             />
-                                            <Button onClick={MapStage} value={'Qo‘lda kiritish'}/>
                                         </div>
 
                                         :
@@ -222,42 +190,15 @@ export default function IntroRestyle() {
                                     <div></div>
                                 </div>
 
-                                <div className={'w-full h-16 px-4 my-4 flex items-center relative'}>
-
-                                    <div className="w-full h-12 bg-[#F3F3F3] rounded-full overflow-hidden">
-                                        <input
-                                            value={searchText}
-                                            onChange={(e) => setSearchText(e.target.value)}
-                                            placeholder="Manzilni qidirish"
-                                            className="w-full h-full text-xl px-4 outline-0 bg-[#F3F3F3] font-semibold"
-                                        />
-                                    </div>
-
-                                    {suggestions.length > 0 && (
-                                        <ul className="absolute top-full mt-2 left-0 w-full bg-white shadow-md rounded-md z-[1000000] max-h-60 overflow-y-auto">
-                                            {suggestions.map((place, idx) => (
-                                                <li
-                                                    key={idx}
-                                                    onClick={() => handleSuggestionClick(place)}
-                                                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                                                >
-                                                    {place.display_name}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-
-                                </div>
-
-                                <div className={'w-full h-[460px] bg-blue-700'}>
+                                <div className={'w-full h-[50vh] mt-5'}>
                                     {/*Here I want to put map choosing*/}
-                                    <MapSelector ref={mapRef}  externalLocation={selectedLocation} />
+                                    <MapSelector ref={mapRef}  />
                                 </div>
 
                             </div>
 
 
-                            <div className={'w-full h-auto flex flex-col px-4'}>
+                            <div className={'w-full h-auto pb-10 flex flex-col px-4'}>
 
                                 <Button value={`${location}`} />
                                 <Button
@@ -267,7 +208,7 @@ export default function IntroRestyle() {
                                     onClick={() => {
                                         if (location) {
                                             localStorage.setItem('myLocation', JSON.stringify(location));
-                                            alert('Location saved!');
+                                            navigate('/home')
                                         } else {
                                             alert('Iltimos, manzilni tanlang');
                                         }

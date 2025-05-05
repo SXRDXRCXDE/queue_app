@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap');
+
+.container {
+    font-family: Manrope;
+    @apply w-full min-h-screen bg-white  ;
+}
+
+.stage1Cont {
+    @apply w-full h-full absolute opacity-100 top-0 duration-500 transition-opacity min-h-screen flex flex-col items-center justify-center;
+}
+
+.stage1ContDisappear {
+    @apply w-full h-full opacity-0 -z-10 absolute top-0 duration-500 transition-opacity min-h-screen flex flex-col items-center justify-center;
+}
+
+.stage1Cont img {
+    @apply w-52 h-fit transform scale-100 transition-transform duration-500;
+}
+
+.stage1ContDisappear img {
+    @apply w-52 h-fit transform scale-100 transition-transform duration-500 ;
+}
+
+.stage1Cont span {
+    @apply absolute bottom-[48px] font-semibold text-xl ;
+}
+
+.stage1ContDisappear span {
+    @apply absolute bottom-[48px] font-semibold text-xl ;
+}
+
+.introBottom {
+    @apply w-full h-full flex flex-col items-start justify-between px-3 pt-4 pb-10 ;
+}
+
+.dataContainer {
+    @apply w-auto flex flex-col items-start text-start relative ;
+}
+
+.activeTitle {
+    @apply  opacity-100 absolute left-3 z-10 delay-100 duration-700 text-[28px] whitespace-nowrap font-semibold ;
+}
+
+.inActiveTitle {
+    @apply  opacity-0 absolute left-3 duration-700 text-[28px] whitespace-nowrap font-semibold ;
+}
+
+.activeDescription {
+    @apply opacity-100 z-10 delay-100 duration-500 absolute left-3 text-[17px] font-[500] ;
+}
+
+.inActiveDescription {
+    @apply opacity-0 z-0 duration-500 absolute left-3 text-[17px] font-[500] ;
+}
+
+.activeTab {
+    @apply w-1/3 h-full rounded bg-[#254EDB] duration-500 ;
+}
+
+.inActiveTab {
+    @apply w-1/3 h-full rounded bg-gray-300 duration-500 ;
+}

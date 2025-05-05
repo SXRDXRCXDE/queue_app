@@ -1,0 +1,36 @@
+@keyframes load {
+    0% {
+        opacity: 0;
+    }
+    80% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.buttonComponent {
+    animation: load 0.25s forwards;
+    /*animation-delay: 1s;*/
+    transition-duration: 0.2s;
+    @apply w-full min-h-20 rounded-xl text-center flex items-center justify-center font-semibold  ;
+}
+
+.buttonNextEnd {
+    animation: disappear forwards 0.5s;
+    transition-duration: 0.2s;
+    @apply  w-full h-20 bg-[#254EDB] rounded-xl text-center flex items-center justify-center text-white font-semibold  ;
+}

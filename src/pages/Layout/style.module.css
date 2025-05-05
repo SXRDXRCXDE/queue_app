@@ -1,9 +1,18 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap');
 
 .container {
-    @apply  w-full min-h-screen relative overflow-hidden ;
+    font-family: 'Manrope', sans-serif;
+    @apply w-full h-screen relative overflow-hidden;
 }
 
-.containerWrapper {
-    @apply w-full h-screen flex flex-col items-start relative z-10 ;
+.contentWrapper {
+    @apply absolute top-0 left-0 w-full h-full flex flex-col z-10;
+}
+
+.stickyHeader {
+    @apply sticky top-0 z-20 w-full flex flex-col bg-transparent px-4 pt-4 pb-2 overflow-hidden ;
+}
+
+.scrollArea {
+    @apply flex-1 overflow-y-auto px-4;
 }
