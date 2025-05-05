@@ -33,7 +33,7 @@ export default function History() {
 
                     {services.length === 0 ? (
                         <div className="w-full mt-4 text-center text-gray-400">
-                            <p>Tarix bo'sh...</p>
+                            <p>Tarix bo'sh.... </p>
                         </div>
                     ) : (
                         services.map((value, index) => (
